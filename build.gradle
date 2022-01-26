@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'maven-publish'
 
 repositories {
     mavenCentral()
@@ -12,6 +13,46 @@ targetCompatibility = 1.8
 
 jar {
     archiveBaseName = 'typesense-java'
+}
+
+javadoc {
+    source = sourceSets.main.allJava
+}
+javadoc.options.addStringOption('Xdoclint:none', '-quiet')
+
+task sourceJar(type: Jar, dependsOn: classes) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+task install(dependsOn: ['publishToMavenLocal', 'publish']) {
+    println "package installed with version $version"
+}
+
+def codeartifactToken = "aws codeartifact get-authorization-token --domain beatstars --domain-owner 210298337781 --query authorizationToken --output text".execute().text
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourceJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            url 'https://beatstars-210298337781.d.codeartifact.us-east-1.amazonaws.com/maven/releases/'
+            credentials {
+                username "aws"
+                password codeartifactToken
+            }
+        }
+    }
 }
 
 sourceSets {
