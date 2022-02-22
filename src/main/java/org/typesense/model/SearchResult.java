@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 public class SearchResult   {
   
   @Schema(required = true, description = "")
-  private List<Integer> facetCounts = new ArrayList<Integer>();
+  private List<SearchFacetCount> facetCounts = new ArrayList<>();
   
   @Schema(required = true, description = "The number of documents found")
  /**
@@ -57,20 +57,20 @@ public class SearchResult   {
    * @return facetCounts
   **/
   @JsonProperty("facet_counts")
-  public List<Integer> getFacetCounts() {
+  public List<SearchFacetCount> getFacetCounts() {
     return facetCounts;
   }
 
-  public void setFacetCounts(List<Integer> facetCounts) {
+  public void setFacetCounts(List<SearchFacetCount> facetCounts) {
     this.facetCounts = facetCounts;
   }
 
-  public SearchResult facetCounts(List<Integer> facetCounts) {
+  public SearchResult facetCounts(List<SearchFacetCount> facetCounts) {
     this.facetCounts = facetCounts;
     return this;
   }
 
-  public SearchResult addFacetCountsItem(Integer facetCountsItem) {
+  public SearchResult addFacetCountsItem(SearchFacetCount facetCountsItem) {
     this.facetCounts.add(facetCountsItem);
     return this;
   }
