@@ -16,15 +16,15 @@ public class Document {
         this.endpoint = Collections.RESOURCE_PATH + "/" +  this.collectionName + Documents.RESOURCE_PATH + "/" + this.documentId;
     }
 
-    HashMap<String,Object> retrieve(){
+    public HashMap<String,Object> retrieve(){
         return this.apiCall.get(endpoint);
     }
 
-    HashMap<String, Object> delete(){
+    public HashMap<String, Object> delete(){
         return this.apiCall.delete(this.endpoint);
     }
 
-    HashMap<String , Object> update(HashMap<String, Object> document){
+    public HashMap<String , Object> update(HashMap<String, Object> document){
         return this.apiCall.patch(this.endpoint, document);
     }
 
