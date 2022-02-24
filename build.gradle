@@ -46,7 +46,7 @@ publishing {
     }
     repositories {
         maven {
-            url 'https://beatstars-210298337781.d.codeartifact.us-east-1.amazonaws.com/maven/releases/'
+            url 'https://beatstars-210298337781.d.codeartifact.us-east-1.amazonaws.com/maven/snapshot/'
             credentials {
                 username "aws"
                 password codeartifactToken
